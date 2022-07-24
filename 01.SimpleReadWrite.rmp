@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.10.010">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.10.010" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="read_excel" compatibility="9.10.010" expanded="true" height="68" name="Read Excel" width="90" x="112" y="136">
+        <parameter key="excel_file" value="C:\Users\sarin\Downloads\Sample - Superstore.xls"/>
+        <parameter key="sheet_selection" value="sheet number"/>
+        <parameter key="sheet_number" value="1"/>
+        <parameter key="imported_cell_range" value="A1"/>
+        <parameter key="encoding" value="SYSTEM"/>
+        <parameter key="first_row_as_names" value="true"/>
+        <list key="annotations"/>
+        <parameter key="date_format" value=""/>
+        <parameter key="time_zone" value="SYSTEM"/>
+        <parameter key="locale" value="English (United States)"/>
+        <parameter key="read_all_values_as_polynominal" value="false"/>
+        <list key="data_set_meta_data_information">
+          <parameter key="0" value="Row ID.true.integer.attribute"/>
+          <parameter key="1" value="Order ID.true.polynominal.attribute"/>
+          <parameter key="2" value="Order Date.true.date.attribute"/>
+          <parameter key="3" value="Ship Date.true.date.attribute"/>
+          <parameter key="4" value="Ship Mode.true.polynominal.attribute"/>
+          <parameter key="5" value="Customer ID.true.polynominal.attribute"/>
+          <parameter key="6" value="Customer Name.true.polynominal.attribute"/>
+          <parameter key="7" value="Segment.true.polynominal.attribute"/>
+          <parameter key="8" value="Country.true.polynominal.attribute"/>
+          <parameter key="9" value="City.true.polynominal.attribute"/>
+          <parameter key="10" value="State.true.polynominal.attribute"/>
+          <parameter key="11" value="Postal Code.true.integer.attribute"/>
+          <parameter key="12" value="Region.true.polynominal.attribute"/>
+          <parameter key="13" value="Product ID.true.polynominal.attribute"/>
+          <parameter key="14" value="Category.true.polynominal.attribute"/>
+          <parameter key="15" value="Sub-Category.true.polynominal.attribute"/>
+          <parameter key="16" value="Product Name.true.polynominal.attribute"/>
+          <parameter key="17" value="Sales.true.real.attribute"/>
+          <parameter key="18" value="Quantity.true.integer.attribute"/>
+          <parameter key="19" value="Discount.true.real.attribute"/>
+          <parameter key="20" value="Profit.true.real.attribute"/>
+        </list>
+        <parameter key="read_not_matching_values_as_missings" value="false"/>
+      </operator>
+      <operator activated="true" class="write_csv" compatibility="9.10.010" expanded="true" height="82" name="Write CSV" width="90" x="380" y="136">
+        <parameter key="csv_file" value="C:/Users/sarin/Downloads/Business-analytics-Course-with-Python-main/Data Analytics/Supermarket_sales.csv"/>
+        <parameter key="column_separator" value=";"/>
+        <parameter key="write_attribute_names" value="true"/>
+        <parameter key="quote_nominal_values" value="true"/>
+        <parameter key="format_date_attributes" value="true"/>
+        <parameter key="date_format" value="yyyy-MM-dd HH:mm:ss"/>
+        <parameter key="append_to_file" value="false"/>
+        <parameter key="encoding" value="SYSTEM"/>
+      </operator>
+      <connect from_op="Read Excel" from_port="output" to_op="Write CSV" to_port="input"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+    </process>
+  </operator>
+</process>
