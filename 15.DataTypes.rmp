@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.10.011">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.10.011" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="9.10.011" expanded="true" height="68" name="Retrieve Deals" width="90" x="112" y="34">
+        <parameter key="repository_entry" value="//Samples/data/Deals"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.10.011" expanded="true" height="68" name="Retrieve Deals (2)" width="90" x="112" y="136">
+        <parameter key="repository_entry" value="//Samples/data/Deals"/>
+      </operator>
+      <operator activated="true" class="text_to_nominal" compatibility="9.10.011" expanded="true" height="82" name="Text to Nominal" width="90" x="313" y="136">
+        <parameter key="attribute_filter_type" value="all"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value=""/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="text"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="text"/>
+        <parameter key="block_type" value="value_matrix"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_matrix_row_start"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.10.011" expanded="true" height="68" name="Retrieve Deals (3)" width="90" x="112" y="238">
+        <parameter key="repository_entry" value="//Samples/data/Deals"/>
+      </operator>
+      <operator activated="true" class="nominal_to_text" compatibility="9.10.011" expanded="true" height="82" name="Nominal to Text" width="90" x="380" y="238">
+        <parameter key="attribute_filter_type" value="all"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value=""/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="nominal"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="file_path"/>
+        <parameter key="block_type" value="single_value"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="single_value"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.10.011" expanded="true" height="68" name="Retrieve Deals (4)" width="90" x="112" y="340">
+        <parameter key="repository_entry" value="//Samples/data/Deals"/>
+      </operator>
+      <operator activated="true" class="model_simulator:one_hot_encoding" compatibility="9.10.002" expanded="true" height="103" name="One-Hot Encoding" width="90" x="380" y="340">
+        <parameter key="return_preprocessing_model" value="false"/>
+        <parameter key="create_view" value="false"/>
+        <parameter key="attribute_filter_type" value="all"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value=""/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="nominal"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="file_path"/>
+        <parameter key="block_type" value="single_value"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="single_value"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+        <parameter key="remove with too many values" value="false"/>
+        <parameter key="maximum number of values" value="100"/>
+        <parameter key="perform encoding" value="true"/>
+      </operator>
+      <connect from_op="Retrieve Deals" from_port="output" to_port="result 1"/>
+      <connect from_op="Retrieve Deals (2)" from_port="output" to_op="Text to Nominal" to_port="example set input"/>
+      <connect from_op="Text to Nominal" from_port="example set output" to_port="result 2"/>
+      <connect from_op="Text to Nominal" from_port="original" to_port="result 3"/>
+      <connect from_op="Retrieve Deals (3)" from_port="output" to_op="Nominal to Text" to_port="example set input"/>
+      <connect from_op="Nominal to Text" from_port="example set output" to_port="result 4"/>
+      <connect from_op="Nominal to Text" from_port="original" to_port="result 5"/>
+      <connect from_op="Retrieve Deals (4)" from_port="output" to_op="One-Hot Encoding" to_port="example set input"/>
+      <connect from_op="One-Hot Encoding" from_port="example set output" to_port="result 6"/>
+      <connect from_op="One-Hot Encoding" from_port="original" to_port="result 7"/>
+      <connect from_op="One-Hot Encoding" from_port="preprocessing model" to_port="result 8"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
+      <portSpacing port="sink_result 5" spacing="0"/>
+      <portSpacing port="sink_result 6" spacing="0"/>
+      <portSpacing port="sink_result 7" spacing="0"/>
+      <portSpacing port="sink_result 8" spacing="0"/>
+      <portSpacing port="sink_result 9" spacing="0"/>
+    </process>
+  </operator>
+</process>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="9.10.011">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="9.10.011" expanded="true" name="Process">
+    <parameter key="logverbosity" value="status"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="retrieve" compatibility="9.10.011" expanded="true" height="68" name="Retrieve Daily Mean Temperature" width="90" x="112" y="34">
+        <parameter key="repository_entry" value="//Samples/Time Series/data sets/Daily Mean Temperature"/>
+      </operator>
+      <operator activated="true" class="numerical_to_binominal" compatibility="9.10.011" expanded="true" height="82" name="Numerical to Binominal" width="90" x="313" y="34">
+        <parameter key="attribute_filter_type" value="all"/>
+        <parameter key="attribute" value=""/>
+        <parameter key="attributes" value=""/>
+        <parameter key="use_except_expression" value="false"/>
+        <parameter key="value_type" value="numeric"/>
+        <parameter key="use_value_type_exception" value="false"/>
+        <parameter key="except_value_type" value="real"/>
+        <parameter key="block_type" value="value_series"/>
+        <parameter key="use_block_type_exception" value="false"/>
+        <parameter key="except_block_type" value="value_series_end"/>
+        <parameter key="invert_selection" value="false"/>
+        <parameter key="include_special_attributes" value="false"/>
+        <parameter key="min" value="0.0"/>
+        <parameter key="max" value="20.0"/>
+      </operator>
+      <operator activated="true" class="retrieve" compatibility="9.10.011" expanded="true" height="68" name="Retrieve Daily Mean Temperature (2)" width="90" x="112" y="238">
+        <parameter key="repository_entry" value="//Samples/Time Series/data sets/Daily Mean Temperature"/>
+      </operator>
+      <connect from_op="Retrieve Daily Mean Temperature" from_port="output" to_op="Numerical to Binominal" to_port="example set input"/>
+      <connect from_op="Numerical to Binominal" from_port="example set output" to_port="result 1"/>
+      <connect from_op="Retrieve Daily Mean Temperature (2)" from_port="output" to_port="result 2"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+      <portSpacing port="sink_result 3" spacing="0"/>
+    </process>
+  </operator>
+</process>
